@@ -19,5 +19,19 @@ export default defineConfig([
       ecmaVersion: 2020,
       globals: globals.browser,
     },
+    // --- ADDED THIS 'rules' SECTION ---
+    rules: {
+      // Configuration to ignore variables starting with an underscore (_)
+      // This allows you to use `node: _node` in your destructured function arguments.
+      '@typescript-eslint/no-unused-vars': [
+        'warn', // Use 'warn' or 'error'
+        { 
+          'argsIgnorePattern': '^_', // Ignore unused function arguments starting with '_'
+          'varsIgnorePattern': '^_',  // Ignore unused variables starting with '_'
+          'caughtErrorsIgnorePattern': '^_'
+        }
+      ]
+    }
+    // ----------------------------------
   },
 ])

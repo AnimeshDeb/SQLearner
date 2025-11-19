@@ -1,5 +1,10 @@
 {
   "compilerOptions": {
+    /* Project Reference Settings (Added/Changed) */
+    "composite": true,
+    "noEmit": false,
+    "emitDeclarationOnly": true,
+
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
     "target": "ES2022",
     "useDefineForClassFields": true,
@@ -10,10 +15,14 @@
 
     /* Bundler mode */
     "moduleResolution": "bundler",
-    "allowImportingTsExtensions": true,
+    
+    /* IMPORTANT: "allowImportingTsExtensions" must be REMOVED or set to false.
+       It requires "noEmit": true, which contradicts the requirement for project references.
+    */
+    "allowImportingTsExtensions": false, 
+    
     "verbatimModuleSyntax": true,
     "moduleDetection": "force",
-    "noEmit": true,
     "jsx": "react-jsx",
 
     /* Linting */
