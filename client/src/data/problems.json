@@ -1,0 +1,545 @@
+[
+    {
+      "id": 1,
+      "title": "Active Users by Country",
+      "difficulty": "Easy",
+      "description": "### Problem\nYou are given a `users` table. Write a query to return, for each country, the number of users whose `status` is `'active'`.\nReturn the result sorted by `active_count` in descending order, and by `country` ascending when counts are equal.\n\n### Table: `users`\n\n| Column   | Type    | Description                        |\n|----------|---------|------------------------------------|\n| user_id  | INT     | Primary key.                       |\n| name     | VARCHAR | Name of the user.                  |\n| country  | VARCHAR | ISO country code of the user.      |\n| status   | VARCHAR | `'active'` or `'inactive'`.        |\n\n### Example\n\n**Input — users**\n\n| user_id | name   | country | status    |\n|---------|--------|---------|-----------|\n| 1       | Alice  | US      | active    |\n| 2       | Bob    | US      | inactive  |\n| 3       | Chen   | CN      | active    |\n| 4       | Diana  | CN      | active    |\n\n**Output**\n\n| country | active_count |\n|---------|--------------|\n| CN      | 2            |\n| US      | 1            |"
+    },
+    {
+      "id": 2,
+      "title": "Average Salary by Department",
+      "difficulty": "Easy",
+      "description": "### Problem\nYou are given an `employees` table. Write a query to return the average salary for each department, rounded to 2 decimal places.\nReturn the result sorted by `department` in ascending order.\n\n### Table: `employees`\n\n| Column       | Type     | Description                     |\n|-------------|----------|---------------------------------|\n| emp_id      | INT      | Primary key.                    |\n| name        | VARCHAR  | Employee name.                  |\n| department  | VARCHAR  | Department name.                |\n| salary      | INT      | Monthly salary of the employee. |\n\n### Example\n\n**Input — employees**\n\n| emp_id | name   | department | salary |\n|--------|--------|------------|--------|\n| 1      | Alice  | IT         | 6000   |\n| 2      | Bob    | IT         | 8000   |\n| 3      | Carol  | HR         | 5000   |\n\n**Output**\n\n| department | avg_salary |\n|------------|------------|\n| HR         | 5000.00    |\n| IT         | 7000.00    |"
+    },
+    {
+      "id": 3,
+      "title": "Customers Without Orders",
+      "difficulty": "Easy",
+      "description": "### Problem\nYou are given `customers` and `orders` tables. Write a query to find all customers who have **never placed an order**.\nReturn the `customer_id` and `name` of such customers, sorted by `customer_id`.\n\n### Table: `customers`\n\n| Column      | Type     | Description           |\n|------------|----------|-----------------------|\n| customer_id| INT      | Primary key.          |\n| name       | VARCHAR  | Customer name.        |\n\n### Table: `orders`\n\n| Column      | Type     | Description                      |\n|------------|----------|----------------------------------|\n| order_id   | INT      | Primary key.                     |\n| customer_id| INT      | Foreign key to `customers`.      |\n| amount     | DECIMAL  | Order amount.                    |\n\n### Example\n\n**Input — customers**\n\n| customer_id | name   |\n|-------------|--------|\n| 1           | Alice  |\n| 2           | Bob    |\n| 3           | Carol  |\n\n**Input — orders**\n\n| order_id | customer_id | amount |\n|----------|-------------|--------|\n| 10       | 1           | 50.00  |\n| 11       | 1           | 20.00  |\n\n**Output**\n\n| customer_id | name  |\n|-------------|-------|\n| 2           | Bob   |\n| 3           | Carol |"
+    },
+    {
+      "id": 4,
+      "title": "Top Selling Products",
+      "difficulty": "Easy",
+      "description": "### Problem\nYou are given `products` and `order_items` tables. Each row in `order_items` represents a product sold in an order.\nWrite a query to return, for each product, the total quantity sold, sorted by `total_sold` descending.\n\n### Table: `products`\n\n| Column     | Type    | Description        |\n|-----------|---------|--------------------|\n| product_id| INT     | Primary key.       |\n| name      | VARCHAR | Product name.      |\n\n### Table: `order_items`\n\n| Column      | Type    | Description                         |\n|------------|---------|-------------------------------------|\n| order_id   | INT     | Order identifier.                   |\n| product_id | INT     | Foreign key to `products`.          |\n| quantity   | INT     | Quantity of this product in order.  |\n\n### Example\n\n**Input — products**\n\n| product_id | name     |\n|-----------|----------|\n| 1         | Keyboard |\n| 2         | Mouse    |\n\n**Input — order_items**\n\n| order_id | product_id | quantity |\n|----------|------------|----------|\n| 101      | 1          | 2        |\n| 102      | 1          | 1        |\n| 103      | 2          | 5        |\n\n**Output**\n\n| product_id | name     | total_sold |\n|-----------|----------|------------|\n| 2         | Mouse    | 5          |\n| 1         | Keyboard | 3          |"
+    },
+    {
+      "id": 5,
+      "title": "Recent Orders",
+      "difficulty": "Easy",
+      "description": "### Problem\nYou are given an `orders` table. Write a query to return all orders placed in the last 7 days relative to the maximum `order_date` in the table.\nReturn all columns, sorted by `order_date` descending.\n\n### Table: `orders`\n\n| Column     | Type     | Description                 |\n|-----------|----------|-----------------------------|\n| order_id  | INT      | Primary key.                |\n| customer_id| INT     | ID of the customer.         |\n| order_date| DATE     | Date the order was placed.  |\n| amount    | DECIMAL  | Order amount.               |\n\n### Example\n\n**Input — orders**\n\n| order_id | customer_id | order_date | amount |\n|----------|-------------|------------|--------|\n| 1        | 10          | 2025-01-01 | 50.00  |\n| 2        | 11          | 2025-01-05 | 20.00  |\n| 3        | 12          | 2025-01-08 | 30.00  |\n\nAssume the maximum `order_date` is `2025-01-08`, so you should return orders from `2025-01-02` to `2025-01-08`.\n\n**Output**\n\n| order_id | customer_id | order_date | amount |\n|----------|-------------|------------|--------|\n| 3        | 12          | 2025-01-08 | 30.00  |\n| 2        | 11          | 2025-01-05 | 20.00  |"
+    },
+    {
+      "id": 6,
+      "title": "Employees Earning Above Department Average",
+      "difficulty": "Easy",
+      "description": "### Problem\nYou are given an `employees` table. For each department, find employees whose salary is **strictly greater** than the average salary of their department.\nReturn `emp_id`, `name`, `department`, and `salary`, sorted by `department` then `salary` descending.\n\n### Table: `employees`\n\n| Column      | Type     | Description         |\n|------------|----------|---------------------|\n| emp_id     | INT      | Primary key.        |\n| name       | VARCHAR  | Employee name.      |\n| department | VARCHAR  | Department name.    |\n| salary     | INT      | Monthly salary.     |\n\n### Example\n\n**Input — employees**\n\n| emp_id | name   | department | salary |\n|--------|--------|------------|--------|\n| 1      | Alice  | IT         | 6000   |\n| 2      | Bob    | IT         | 9000   |\n| 3      | Carol  | HR         | 5000   |\n| 4      | David  | HR         | 4000   |\n\nAverage salary IT = 7500, HR = 4500.\n\n**Output**\n\n| emp_id | name  | department | salary |\n|--------|-------|------------|--------|\n| 2      | Bob   | IT         | 9000   |\n| 3      | Carol | HR         | 5000   |"
+    },
+    {
+      "id": 7,
+      "title": "Count Orders Per Day",
+      "difficulty": "Easy",
+      "description": "### Problem\nYou are given an `orders` table. Write a query to count how many orders are placed on each date.\nReturn `order_date` and `order_count`, sorted by `order_date` ascending.\n\n### Table: `orders`\n\n| Column     | Type     | Description                 |\n|-----------|----------|-----------------------------|\n| order_id  | INT      | Primary key.                |\n| order_date| DATE     | Date the order was placed.  |\n\n### Example\n\n**Input — orders**\n\n| order_id | order_date |\n|----------|------------|\n| 1        | 2025-01-01 |\n| 2        | 2025-01-01 |\n| 3        | 2025-01-02 |\n\n**Output**\n\n| order_date | order_count |\n|------------|-------------|\n| 2025-01-01 | 2           |\n| 2025-01-02 | 1           |"
+    },
+    {
+      "id": 8,
+      "title": "Latest Order per Customer",
+      "difficulty": "Easy",
+      "description": "### Problem\nYou are given an `orders` table. For each customer, find their **most recent order**.\nReturn `customer_id`, `order_id`, and `order_date` for the latest order of each customer.\n\n### Table: `orders`\n\n| Column      | Type     | Description                 |\n|------------|----------|-----------------------------|\n| order_id   | INT      | Primary key.                |\n| customer_id| INT      | ID of the customer.         |\n| order_date | DATE     | Date the order was placed.  |\n\n### Example\n\n**Input — orders**\n\n| order_id | customer_id | order_date |\n|----------|-------------|------------|\n| 1        | 10          | 2025-01-01 |\n| 2        | 10          | 2025-01-05 |\n| 3        | 11          | 2025-01-03 |\n\n**Output**\n\n| customer_id | order_id | order_date |\n|-------------|----------|------------|\n| 10          | 2        | 2025-01-05 |\n| 11          | 3        | 2025-01-03 |"
+    },
+    {
+      "id": 9,
+      "title": "City with the Most Customers",
+      "difficulty": "Easy",
+      "description": "### Problem\nYou are given a `customers` table. Find the city (or cities) that has the **maximum number of customers**.\nReturn `city` and `customer_count` for those cities.\n\n### Table: `customers`\n\n| Column      | Type     | Description      |\n|------------|----------|------------------|\n| customer_id| INT      | Primary key.     |\n| name       | VARCHAR  | Customer name.   |\n| city       | VARCHAR  | City name.       |\n\n### Example\n\n**Input — customers**\n\n| customer_id | name   | city     |\n|-------------|--------|----------|\n| 1           | Alice  | Seattle  |\n| 2           | Bob    | Boston   |\n| 3           | Carol  | Seattle  |\n\n**Output**\n\n| city    | customer_count |\n|---------|----------------|\n| Seattle | 2              |"
+    },
+    {
+      "id": 10,
+      "title": "Products Never Sold",
+      "difficulty": "Easy",
+      "description": "### Problem\nYou are given `products` and `order_items` tables. Find all products that have **never been sold** in any order.\nReturn `product_id` and `name`, sorted by `product_id`.\n\n### Table: `products`\n\n| Column     | Type    | Description        |\n|-----------|---------|--------------------|\n| product_id| INT     | Primary key.       |\n| name      | VARCHAR | Product name.      |\n\n### Table: `order_items`\n\n| Column      | Type    | Description                         |\n|------------|---------|-------------------------------------|\n| order_id   | INT     | Order identifier.                   |\n| product_id | INT     | Foreign key to `products`.          |\n| quantity   | INT     | Quantity of this product in order.  |\n\n### Example\n\n**Input — products**\n\n| product_id | name     |\n|-----------|----------|\n| 1         | Keyboard |\n| 2         | Mouse    |\n| 3         | Monitor  |\n\n**Input — order_items**\n\n| order_id | product_id | quantity |\n|----------|------------|----------|\n| 101      | 1          | 2        |\n| 102      | 2          | 1        |\n\n**Output**\n\n| product_id | name    |\n|-----------|---------|\n| 3         | Monitor |"
+    },
+  
+    {
+      "id": 11,
+      "title": "Monthly Revenue by Category",
+      "difficulty": "Medium",
+      "description": "### Problem\nYou are given `products`, `orders`, and `order_items` tables. Each order item contains quantity and unit price.\nCompute the total revenue per product category per month (YYYY-MM).\nReturn `month`, `category`, and `total_revenue`, sorted by `month` then `category`.\n\n### Table: `products`\n\n| Column     | Type    | Description        |\n|-----------|---------|--------------------|\n| product_id| INT     | Primary key.       |\n| name      | VARCHAR | Product name.      |\n| category  | VARCHAR | Category name.     |\n\n### Table: `orders`\n\n| Column     | Type     | Description                 |\n|-----------|----------|-----------------------------|\n| order_id  | INT      | Primary key.                |\n| order_date| DATE     | Date the order was placed.  |\n\n### Table: `order_items`\n\n| Column      | Type     | Description                          |\n|------------|----------|--------------------------------------|\n| order_id   | INT      | Foreign key to `orders`.             |\n| product_id | INT      | Foreign key to `products`.           |\n| quantity   | INT      | Quantity purchased.                  |\n| unit_price | DECIMAL  | Price per unit at time of purchase.  |\n\n### Requirement\n\nRevenue for a row = `quantity * unit_price`. Group by year-month and category."
+    },
+    {
+      "id": 12,
+      "title": "Second Highest Salary",
+      "difficulty": "Medium",
+      "description": "### Problem\nYou are given an `employees` table. Write a query to find the **second highest distinct salary** in the company.\nIf there is no second highest salary, return `NULL` as `second_highest`.\n\n### Table: `employees`\n\n| Column  | Type    | Description       |\n|--------|---------|-------------------|\n| emp_id | INT     | Primary key.      |\n| name   | VARCHAR | Employee name.    |\n| salary | INT     | Monthly salary.   |\n\n### Output\n\nReturn a single row:\n\n| second_highest |\n|----------------|\n| 7000           |\n\n…or `NULL` if not applicable."
+    },
+    {
+      "id": 13,
+      "title": "Consecutive Login Days",
+      "difficulty": "Medium",
+      "description": "### Problem\nYou are given a `logins` table with the days users logged in.\nFor each user, find the length of their **longest streak** of consecutive login days.\n\n### Table: `logins`\n\n| Column     | Type | Description                   |\n|-----------|------|-------------------------------|\n| user_id   | INT  | ID of the user.               |\n| login_date| DATE | Date user logged in.          |\n\n### Requirements\n\nReturn `user_id` and `max_streak`, where `max_streak` is the maximum number of consecutive days they logged in.\nUse window functions or date arithmetic to detect consecutive days."
+    },
+    {
+      "id": 14,
+      "title": "Top 3 Products Per Category",
+      "difficulty": "Medium",
+      "description": "### Problem\nYou are given `products` and `order_items` tables. For each category, find the **top 3 products** by total quantity sold.\nIf a category has fewer than 3 products, return all of them.\n\n### Table: `products`\n\n| Column     | Type    | Description    |\n|-----------|---------|----------------|\n| product_id| INT     | Primary key.   |\n| name      | VARCHAR | Product name.  |\n| category  | VARCHAR | Category name. |\n\n### Table: `order_items`\n\n| Column      | Type | Description                        |\n|------------|------|------------------------------------|\n| order_id   | INT  | Order identifier.                  |\n| product_id | INT  | Foreign key to `products`.         |\n| quantity   | INT  | Quantity of this product in order. |\n\n### Requirements\n\nReturn `category`, `product_id`, `name`, and `total_quantity`, sorted by `category` then `total_quantity` descending.\nUse a window function like `ROW_NUMBER()` partitioned by category."
+    },
+    {
+      "id": 15,
+      "title": "Users Who Ordered All Categories",
+      "difficulty": "Medium",
+      "description": "### Problem\nYou are given `users`, `orders`, `order_items`, and `products` tables.\nFind users who have ordered **at least one product from every category** that exists in the `products` table.\n\n### Table: `users`\n\n| Column  | Type    | Description  |\n|--------|---------|--------------|\n| user_id| INT     | Primary key. |\n| name   | VARCHAR | User name.   |\n\n### Table: `orders`\n\n| Column     | Type | Description             |\n|-----------|------|-------------------------|\n| order_id  | INT  | Primary key.            |\n| user_id   | INT  | Foreign key to `users`. |\n\n### Table: `order_items`\n\n| Column      | Type | Description                        |\n|------------|------|------------------------------------|\n| order_id   | INT  | Foreign key to `orders`.           |\n| product_id | INT  | Foreign key to `products`.         |\n\n### Table: `products`\n\n| Column     | Type    | Description    |\n|-----------|---------|----------------|\n| product_id| INT     | Primary key.   |\n| category  | VARCHAR | Category name. |\n\n### Requirements\n\nReturn `user_id` and `name` of users who have purchased from **all categories**."
+    },
+    {
+      "id": 16,
+      "title": "Employees Without a Manager",
+      "difficulty": "Medium",
+      "description": "### Problem\nYou are given an `employees` table where some employees have managers.\nFind employees that **do not have a manager** (their `manager_id` is `NULL` or does not correspond to any existing employee).\n\n### Table: `employees`\n\n| Column     | Type    | Description                             |\n|-----------|---------|-----------------------------------------|\n| emp_id    | INT     | Primary key.                            |\n| name      | VARCHAR | Employee name.                          |\n| manager_id| INT     | Employee ID of their manager, nullable. |\n\n### Requirements\n\nReturn `emp_id` and `name` for such employees, sorted by `emp_id`."
+    },
+    {
+      "id": 17,
+      "title": "Running Total of Daily Sales",
+      "difficulty": "Medium",
+      "description": "### Problem\nYou are given a `sales` table where each row represents one sale.\nCompute the **running total** of sales amount per day when ordered by date.\n\n### Table: `sales`\n\n| Column   | Type     | Description         |\n|---------|----------|---------------------|\n| sale_id | INT      | Primary key.        |\n| sale_date | DATE   | Date of the sale.   |\n| amount  | DECIMAL  | Amount of the sale. |\n\n### Requirements\n\nFor each `sale_date`, compute total sales that day, then compute a cumulative sum over dates.\nReturn `sale_date`, `daily_amount`, and `running_total`, sorted by `sale_date`."
+    },
+    {
+      "id": 18,
+      "title": "Customers with Decreasing Spend",
+      "difficulty": "Medium",
+      "description": "### Problem\nYou are given an `orders` table. For each customer, consider their orders in chronological order.\nFind customers whose **order amounts strictly decrease** on every subsequent order.\n\n### Table: `orders`\n\n| Column      | Type     | Description         |\n|------------|----------|---------------------|\n| order_id   | INT      | Primary key.        |\n| customer_id| INT      | Customer ID.        |\n| order_date | DATE     | Date of the order.  |\n| amount     | DECIMAL  | Order amount.       |\n\n### Requirements\n\nReturn `customer_id` for customers whose sequence of `amount` is strictly decreasing over time.\nUse window functions to compare each order with the previous one."
+    },
+    {
+      "id": 19,
+      "title": "Median Salary per Department",
+      "difficulty": "Medium",
+      "description": "### Problem\nYou are given an `employees` table. For each department, compute the **median salary**.\n\n### Table: `employees`\n\n| Column      | Type    | Description         |\n|------------|---------|---------------------|\n| emp_id     | INT     | Primary key.        |\n| department | VARCHAR | Department name.    |\n| salary     | INT     | Monthly salary.     |\n\n### Requirements\n\nUse window functions (like `PERCENTILE_CONT` or manual ranking) to compute the median.\nReturn `department` and `median_salary`."
+    },
+    {
+      "id": 20,
+      "title": "Daily Active Users",
+      "difficulty": "Medium",
+      "description": "### Problem\nYou are given an `events` table that records user actions in an app.\nFor each day, compute the number of **distinct active users**.\n\n### Table: `events`\n\n| Column      | Type    | Description                      |\n|------------|---------|----------------------------------|\n| user_id    | INT     | ID of the user.                  |\n| event_date | DATE    | Date of the event.               |\n| event_type | VARCHAR | Type of event (login, click, etc.)|\n\n### Requirements\n\nReturn `event_date` and `active_users` (count of distinct `user_id`), sorted by `event_date`."
+    },
+  
+    {
+      "id": 21,
+      "title": "User Cohort Retention",
+      "difficulty": "Hard",
+      "description": "### Problem\nYou are given a `signups` table and a `logins` table.\nDefine a cohort as all users who signed up in the same **month** (YYYY-MM).\nFor each cohort month and each of the next three months, compute how many users logged in at least once.\n\n### Table: `signups`\n\n| Column      | Type | Description              |\n|------------|------|--------------------------|\n| user_id    | INT  | Primary key.             |\n| signup_date| DATE | Date user signed up.     |\n\n### Table: `logins`\n\n| Column      | Type | Description             |\n|------------|------|-------------------------|\n| user_id    | INT  | ID of the user.         |\n| login_date | DATE | Date user logged in.    |\n\n### Requirements\n\nFor each `cohort_month` (from `signup_date`) and `month_offset` in {0,1,2,3}, return how many users from that cohort logged in during that month (cohort month + offset)."
+    },
+    {
+      "id": 22,
+      "title": "Employee Hierarchy Depth",
+      "difficulty": "Hard",
+      "description": "### Problem\nYou are given an `employees` table representing an organization tree.\nEach employee may have a `manager_id` that points to another `emp_id`. Top-level employees have `NULL` manager.\nFind the **maximum depth** of the hierarchy.\n\n### Table: `employees`\n\n| Column     | Type    | Description                        |\n|-----------|---------|------------------------------------|\n| emp_id    | INT     | Primary key.                       |\n| name      | VARCHAR | Employee name.                     |\n| manager_id| INT     | ID of manager, or NULL.            |\n\n### Requirements\n\nUse a recursive CTE to compute the depth of each node.\nReturn a single row with:\n\n| max_depth |\n|-----------|\n| 4         |"
+    },
+    {
+      "id": 23,
+      "title": "Detect Cycles in Follow Graph",
+      "difficulty": "Hard",
+      "description": "### Problem\nYou are given a `follows` table representing a directed graph of user follows.\nDetect whether there exists any **cycle** in the graph.\n\n### Table: `follows`\n\n| Column   | Type | Description                      |\n|---------|------|----------------------------------|\n| follower| INT  | User who follows.                |\n| followee| INT  | User being followed.             |\n\n### Requirements\n\nReturn a single row:\n\n| has_cycle |\n|-----------|\n| 1         |\n\nif any directed cycle exists, otherwise 0.\nThis can be solved using a recursive CTE and cycle detection."
+    },
+    {
+      "id": 24,
+      "title": "K-th Highest Salary per Department",
+      "difficulty": "Hard",
+      "description": "### Problem\nYou are given an `employees` table and a parameter `k`.\nFor each department, find the **k-th highest distinct salary**.\nIf a department has fewer than k distinct salaries, return `NULL` for that department.\n\n### Table: `employees`\n\n| Column      | Type    | Description         |\n|------------|---------|---------------------|\n| emp_id     | INT     | Primary key.        |\n| department | VARCHAR | Department name.    |\n| salary     | INT     | Monthly salary.     |\n\n### Requirements\n\nReturn `department` and `kth_salary`.\nUse window functions with `DENSE_RANK()` partitioned by department."
+    },
+    {
+      "id": 25,
+      "title": "Overlapping Reservations",
+      "difficulty": "Hard",
+      "description": "### Problem\nYou are given a `reservations` table for an online booking system.\nFind all pairs of reservations that **overlap in time** for the same room.\n\n### Table: `reservations`\n\n| Column         | Type     | Description              |\n|---------------|----------|--------------------------|\n| reservation_id| INT      | Primary key.             |\n| room_id       | INT      | ID of the room.          |\n| start_time    | DATETIME | Start of reservation.    |\n| end_time      | DATETIME | End of reservation.      |\n\n### Requirements\n\nReturn `room_id`, `reservation_id_1`, `reservation_id_2` where the time intervals overlap.\nDo not return duplicate pairs (i.e., `(a,b)` and `(b,a)` both)."
+    },
+    {
+      "id": 26,
+      "title": "Windowed Order Rank per Customer",
+      "difficulty": "Hard",
+      "description": "### Problem\nYou are given an `orders` table. For each customer, rank their orders by amount within a 30-day rolling window.\n\n### Table: `orders`\n\n| Column      | Type     | Description         |\n|------------|----------|---------------------|\n| order_id   | INT      | Primary key.        |\n| customer_id| INT      | Customer ID.        |\n| order_date | DATE     | Date of the order.  |\n| amount     | DECIMAL  | Order amount.       |\n\n### Requirements\n\nFor each order, consider other orders by the same customer with `order_date` in the 30 days ending at the current `order_date`.\nCompute a rank (`window_rank`) based on amount within that window (highest amount gets rank 1).\nReturn `order_id`, `customer_id`, `order_date`, `amount`, and `window_rank`."
+    },
+    {
+      "id": 27,
+      "title": "Churned Customers",
+      "difficulty": "Hard",
+      "description": "### Problem\nYou are given a `subscriptions` table recording when customers start and end their subscriptions.\nA customer is considered **churned** in a month if:\n\n1. They had an active subscription at some point before that month, and\n2. They do not have an active subscription on any day of that month or after.\n\n### Table: `subscriptions`\n\n| Column       | Type  | Description                      |\n|-------------|-------|----------------------------------|\n| customer_id | INT   | Customer ID.                     |\n| start_date  | DATE  | Subscription start date.         |\n| end_date    | DATE  | Subscription end date (nullable).|\n\n### Requirements\n\nAssume open-ended subscriptions have `NULL` end_date.\nReturn `customer_id` and `churn_month` (YYYY-MM) when they churned."
+    },
+    {
+      "id": 28,
+      "title": "Lagging and Leading Indicators",
+      "difficulty": "Hard",
+      "description": "### Problem\nYou are given a `metrics` table storing a numeric business metric per day.\nFor each date, compute the **previous day's value**, **next day's value**, and the 3-day moving average centered on that day.\n\n### Table: `metrics`\n\n| Column | Type     | Description           |\n|--------|----------|-----------------------|\n| m_date| DATE     | Date of the metric.   |\n| value | DECIMAL  | Metric value.         |\n\n### Requirements\n\nReturn `m_date`, `value`, `prev_value`, `next_value`, and `moving_avg_3d`.\nUse `LAG`, `LEAD`, and a window frame for the moving average."
+    },
+    {
+      "id": 29,
+      "title": "Bid-Ask Spread by Minute",
+      "difficulty": "Hard",
+      "description": "### Problem\nYou are given a `quotes` table with bid and ask prices for a stock at different timestamps.\nCompute the **average bid-ask spread** per minute.\n\n### Table: `quotes`\n\n| Column   | Type      | Description              |\n|---------|-----------|--------------------------|\n| q_time  | DATETIME  | Timestamp of the quote.  |\n| bid     | DECIMAL   | Bid price.               |\n| ask     | DECIMAL   | Ask price.               |\n\n### Requirements\n\nFor each minute (YYYY-MM-DD HH:MM), compute the average `(ask - bid)`.\nReturn `minute` and `avg_spread`, sorted by `minute`."
+    },
+    {
+      "id": 30,
+      "title": "Detect Anomalous Transactions",
+      "difficulty": "Hard",
+      "description": "### Problem\nYou are given a `transactions` table.\nFor each user, compute the average and standard deviation of their transaction amounts.\nMark a transaction as **anomalous** if its amount is more than 3 standard deviations above the user's mean.\n\n### Table: `transactions`\n\n| Column      | Type    | Description         |\n|------------|---------|---------------------|\n| txn_id     | INT     | Primary key.        |\n| user_id    | INT     | User ID.            |\n| txn_date   | DATE    | Date of transaction.|\n| amount     | DECIMAL | Transaction amount. |\n\n### Requirements\n\nReturn `txn_id`, `user_id`, `amount`, and a flag column `is_anomalous` (0 or 1).\nUse window aggregates for mean and standard deviation per user."
+    },
+    {
+        "id": 31,
+        "title": "Filter High Value Orders",
+        "difficulty": "Easy",
+        "description": "### Problem\nYou are given an `orders` table. Write a query to return all orders where the `amount` is **greater than or equal to 100**.\nReturn all columns, sorted by `order_id`.\n\n### Table: `orders`\n\n| Column      | Type     | Description         |\n|------------|----------|---------------------|\n| order_id   | INT      | Primary key.        |\n| customer_id| INT      | Customer ID.        |\n| order_date | DATE     | Date of the order.  |\n| amount     | DECIMAL  | Order amount.       |"
+    },
+    {
+        "id": 32,
+        "title": "Customers by Registration Year",
+        "difficulty": "Easy",
+        "description": "### Problem\nYou are given a `customers` table. For each **registration year**, count how many customers signed up.\nReturn `signup_year` and `customer_count`, sorted by `signup_year`.\n\n### Table: `customers`\n\n| Column       | Type   | Description              |\n|-------------|--------|--------------------------|\n| customer_id | INT    | Primary key.             |\n| name        | VARCHAR| Customer name.           |\n| signup_date | DATE   | Date the customer joined |"
+    },
+    {
+        "id": 33,
+        "title": "Products by Category Count",
+        "difficulty": "Easy",
+        "description": "### Problem\nYou are given a `products` table. Count how many products belong to each category.\nReturn `category` and `product_count`, sorted by `product_count` descending, then `category` ascending.\n\n### Table: `products`\n\n| Column     | Type    | Description    |\n|-----------|---------|----------------|\n| product_id| INT     | Primary key.   |\n| name      | VARCHAR | Product name.  |\n| category  | VARCHAR | Category name. |"
+    },
+    {
+        "id": 34,
+        "title": "Orders in a Date Range",
+        "difficulty": "Easy",
+        "description": "### Problem\nYou are given an `orders` table. Return all orders where `order_date` is between **2025-01-01** and **2025-01-31** inclusive.\nReturn `order_id`, `customer_id`, and `order_date`, sorted by `order_date`.\n\n### Table: `orders`\n\n| Column      | Type     | Description         |\n|------------|----------|---------------------|\n| order_id   | INT      | Primary key.        |\n| customer_id| INT      | Customer ID.        |\n| order_date | DATE     | Date of the order.  |\n| amount     | DECIMAL  | Order amount.       |"
+    },
+    {
+        "id": 35,
+        "title": "Uppercase Country Codes",
+        "difficulty": "Easy",
+        "description": "### Problem\nYou are given a `users` table. For each user, return their `user_id`, `name`, and `country` converted to **uppercase**.\nReturn results sorted by `user_id`.\n\n### Table: `users`\n\n| Column   | Type    | Description         |\n|---------|---------|---------------------|\n| user_id | INT     | Primary key.        |\n| name    | VARCHAR | User name.          |\n| country | VARCHAR | ISO country code.   |"
+    },
+    {
+        "id": 36,
+        "title": "Email Domain Extraction",
+        "difficulty": "Easy",
+        "description": "### Problem\nYou are given a `subscribers` table with email addresses.\nExtract the **domain** (the part after `@`) for each email.\nReturn `subscriber_id` and `domain`, sorted by `subscriber_id`.\n\n### Table: `subscribers`\n\n| Column        | Type    | Description          |\n|--------------|---------|----------------------|\n| subscriber_id| INT     | Primary key.         |\n| email        | VARCHAR | Subscriber's email.  |"
+    },
+    {
+        "id": 37,
+        "title": "Total Spend per Customer",
+        "difficulty": "Easy",
+        "description": "### Problem\nYou are given an `orders` table. For each customer, compute the **total amount** they have spent.\nReturn `customer_id` and `total_spent`, sorted by `total_spent` descending.\n\n### Table: `orders`\n\n| Column      | Type     | Description         |\n|------------|----------|---------------------|\n| order_id   | INT      | Primary key.        |\n| customer_id| INT      | Customer ID.        |\n| order_date | DATE     | Date of the order.  |\n| amount     | DECIMAL  | Order amount.       |"
+    },
+    {
+        "id": 38,
+        "title": "Inactive Users",
+        "difficulty": "Easy",
+        "description": "### Problem\nYou are given a `users` table. Return all users whose `status` is **not** `'active'`.\nReturn `user_id`, `name`, and `status`, sorted by `user_id`.\n\n### Table: `users`\n\n| Column   | Type    | Description                        |\n|---------|---------|------------------------------------|\n| user_id | INT     | Primary key.                       |\n| name    | VARCHAR | Name of the user.                  |\n| status  | VARCHAR | `'active'`, `'inactive'`, etc.     |"
+    },
+    {
+        "id": 39,
+        "title": "Latest Login per User",
+        "difficulty": "Easy",
+        "description": "### Problem\nYou are given a `logins` table. For each user, find their **most recent** login timestamp.\nReturn `user_id` and `last_login`, sorted by `user_id`.\n\n### Table: `logins`\n\n| Column     | Type      | Description             |\n|-----------|-----------|-------------------------|\n| user_id   | INT       | User ID.                |\n| login_time| TIMESTAMP | Time of the login.      |"
+    },
+    {
+        "id": 40,
+        "title": "Count Distinct Products per Order",
+        "difficulty": "Easy",
+        "description": "### Problem\nYou are given an `order_items` table. For each order, count how many **distinct products** were included.\nReturn `order_id` and `product_count`, sorted by `order_id`.\n\n### Table: `order_items`\n\n| Column      | Type | Description                        |\n|------------|------|------------------------------------|\n| order_id   | INT  | Order identifier.                  |\n| product_id | INT  | Product identifier.                |\n| quantity   | INT  | Quantity of this product in order. |"
+    },
+    {
+        "id": 41,
+        "title": "Average Rating per Product",
+        "difficulty": "Easy",
+        "description": "### Problem\nYou are given a `reviews` table. For each product, compute the **average rating** to two decimal places.\nReturn `product_id` and `avg_rating`, sorted by `product_id`.\n\n### Table: `reviews`\n\n| Column     | Type   | Description        |\n|-----------|--------|--------------------|\n| review_id | INT    | Primary key.       |\n| product_id| INT    | Product reviewed.  |\n| rating    | INT    | Rating from 1 to 5 |"
+    },
+    {
+        "id": 42,
+        "title": "Employees Hired After 2020",
+        "difficulty": "Easy",
+        "description": "### Problem\nYou are given an `employees` table. Return all employees who were hired **after** 2020-12-31.\nReturn `emp_id`, `name`, and `hire_date`, sorted by `hire_date`.\n\n### Table: `employees`\n\n| Column   | Type   | Description         |\n|---------|--------|---------------------|\n| emp_id  | INT    | Primary key.        |\n| name    | VARCHAR| Employee name.      |\n| hire_date| DATE  | Hire date.          |"
+    },
+    {
+        "id": 43,
+        "title": "Top 5 Most Expensive Products",
+        "difficulty": "Easy",
+        "description": "### Problem\nYou are given a `products` table. Return the **top 5** products with the highest `price`.\nIf there are ties, break them by `product_id` ascending.\n\n### Table: `products`\n\n| Column     | Type    | Description      |\n|-----------|---------|------------------|\n| product_id| INT     | Primary key.     |\n| name      | VARCHAR | Product name.    |\n| price     | DECIMAL | Product price.   |"
+    },
+    {
+        "id": 44,
+        "title": "Users Without Email",
+        "difficulty": "Easy",
+        "description": "### Problem\nYou are given a `users` table. Find all users whose `email` is `NULL` or an empty string.\nReturn `user_id` and `name`, sorted by `user_id`.\n\n### Table: `users`\n\n| Column   | Type    | Description         |\n|---------|---------|---------------------|\n| user_id | INT     | Primary key.        |\n| name    | VARCHAR | User name.          |\n| email   | VARCHAR | Email address.      |"
+    },
+    {
+        "id": 45,
+        "title": "Count Orders per Status",
+        "difficulty": "Easy",
+        "description": "### Problem\nYou are given an `orders` table. Count how many orders have each `status`.\nReturn `status` and `order_count`, sorted by `order_count` descending.\n\n### Table: `orders`\n\n| Column     | Type    | Description              |\n|-----------|---------|--------------------------|\n| order_id  | INT     | Primary key.             |\n| status    | VARCHAR | 'pending','paid', etc.   |\n| order_date| DATE    | Date the order was made. |"
+    },
+    {
+        "id": 46,
+        "title": "Combine First and Last Name",
+        "difficulty": "Easy",
+        "description": "### Problem\nYou are given a `people` table. For each row, return a single `full_name` column in the format `'first_name last_name'`.\nReturn `person_id` and `full_name`, sorted by `person_id`.\n\n### Table: `people`\n\n| Column     | Type    | Description         |\n|-----------|---------|---------------------|\n| person_id | INT     | Primary key.        |\n| first_name| VARCHAR | First name.         |\n| last_name | VARCHAR | Last name.          |"
+    },
+    {
+        "id": 47,
+        "title": "Find Duplicate Emails",
+        "difficulty": "Easy",
+        "description": "### Problem\nYou are given a `users` table. Find all email addresses that appear **more than once**.\nReturn `email` and `user_count`.\n\n### Table: `users`\n\n| Column   | Type    | Description         |\n|---------|---------|---------------------|\n| user_id | INT     | Primary key.        |\n| email   | VARCHAR | Email address.      |"
+    },
+    {
+        "id": 48,
+        "title": "Earliest Order per Customer",
+        "difficulty": "Easy",
+        "description": "### Problem\nYou are given an `orders` table. For each customer, find the date of their **first order**.\nReturn `customer_id` and `first_order_date`, sorted by `customer_id`.\n\n### Table: `orders`\n\n| Column      | Type     | Description         |\n|------------|----------|---------------------|\n| order_id   | INT      | Primary key.        |\n| customer_id| INT      | Customer ID.        |\n| order_date | DATE     | Date of the order.  |\n| amount     | DECIMAL  | Order amount.       |"
+    },
+    {
+        "id": 49,
+        "title": "Customers with Exactly One Order",
+        "difficulty": "Easy",
+        "description": "### Problem\nYou are given an `orders` table. Find customers who have placed **exactly one** order.\nReturn `customer_id`, sorted ascending.\n\n### Table: `orders`\n\n| Column      | Type     | Description         |\n|------------|----------|---------------------|\n| order_id   | INT      | Primary key.        |\n| customer_id| INT      | Customer ID.        |\n| order_date | DATE     | Date of the order.  |"
+    },
+    {
+        "id": 50,
+        "title": "Average Session Duration",
+        "difficulty": "Easy",
+        "description": "### Problem\nYou are given a `sessions` table. Each row has a start and end timestamp for a user session.\nCompute the **average session duration in minutes**, rounded to 2 decimals.\nReturn a single row with `avg_minutes`.\n\n### Table: `sessions`\n\n| Column     | Type      | Description                 |\n|-----------|-----------|-----------------------------|\n| session_id| INT       | Primary key.                |\n| user_id   | INT       | User ID.                    |\n| start_time| TIMESTAMP | Session start time.         |\n| end_time  | TIMESTAMP | Session end time.           |"
+    },
+    {
+        "id": 51,
+        "title": "Monthly Active Customers",
+        "difficulty": "Medium",
+        "description": "### Problem\nYou are given an `orders` table. A customer is **active** in a month if they placed at least one order in that month.\nFor each month, count distinct active customers.\nReturn `month` (YYYY-MM) and `active_customers`, sorted by `month`.\n\n### Table: `orders`\n\n| Column      | Type   | Description         |\n|------------|--------|---------------------|\n| order_id   | INT    | Primary key.        |\n| customer_id| INT    | Customer ID.        |\n| order_date | DATE   | Date of the order.  |"
+    },
+    {
+        "id": 52,
+        "title": "RFM Scoring: Recency and Frequency",
+        "difficulty": "Medium",
+        "description": "### Problem\nYou are given an `orders` table.\nFor each customer, compute:\n- `last_order_date`\n- `order_count`\nUse window functions to compute each metric.\nReturn `customer_id`, `last_order_date`, and `order_count`.\n\n### Table: `orders`\n\n| Column      | Type   | Description         |\n|------------|--------|---------------------|\n| order_id   | INT    | Primary key.        |\n| customer_id| INT    | Customer ID.        |\n| order_date | DATE   | Date of the order.  |"
+    },
+    {
+        "id": 53,
+        "title": "Users with Consecutive Missed Days",
+        "difficulty": "Medium",
+        "description": "### Problem\nYou are given a `logins` table. Find users who have at least **3 consecutive days without logging in** between two of their logins.\nReturn `user_id`.\n\n### Table: `logins`\n\n| Column     | Type | Description        |\n|-----------|------|--------------------|\n| user_id   | INT  | User ID.           |\n| login_date| DATE | Date they logged in|"
+    },
+    {
+        "id": 54,
+        "title": "Rolling 7-Day Revenue",
+        "difficulty": "Medium",
+        "description": "### Problem\nYou are given a `daily_revenue` table with one row per date.\nCompute the **7-day rolling sum** of revenue ending at each date.\nReturn `rev_date` and `revenue_7d`, sorted by `rev_date`.\n\n### Table: `daily_revenue`\n\n| Column   | Type   | Description      |\n|---------|--------|------------------|\n| rev_date| DATE   | Revenue date.    |\n| amount  | DECIMAL| Revenue amount.  |"
+    },
+    {
+        "id": 55,
+        "title": "Top 3 Customers per Country",
+        "difficulty": "Medium",
+        "description": "### Problem\nYou are given `customers` and `orders` tables.\nCompute total spend per customer, then for each country return the **top 3 customers** by spend.\nReturn `country`, `customer_id`, and `total_spent`.\n\n### Table: `customers`\n\n| Column      | Type   | Description   |\n|------------|--------|---------------|\n| customer_id| INT    | Primary key.  |\n| name       | VARCHAR| Customer name.|\n| country    | VARCHAR| Country code. |\n\n### Table: `orders`\n\n| Column      | Type   | Description         |\n|------------|--------|---------------------|\n| order_id   | INT    | Primary key.        |\n| customer_id| INT    | Customer ID.        |\n| amount     | DECIMAL| Order amount.       |"
+    },
+    {
+        "id": 56,
+        "title": "Product Conversion Funnel",
+        "difficulty": "Medium",
+        "description": "### Problem\nYou are given an `events` table representing a funnel with steps `'view'`, `'add_to_cart'`, `'purchase'`.\nFor each product, count how many users performed each step and compute conversion rates between steps.\nReturn `product_id`, `views`, `adds`, `purchases`, `view_to_add_rate`, and `add_to_purchase_rate`.\n\n### Table: `events`\n\n| Column      | Type    | Description                |\n|------------|---------|----------------------------|\n| user_id    | INT     | User performing the event. |\n| product_id | INT     | Product involved.          |\n| event_type | VARCHAR | 'view','add_to_cart','purchase' |\n| event_time | TIMESTAMP | Event timestamp.        |"
+    },
+    {
+        "id": 57,
+        "title": "Sessionize Clickstream Events",
+        "difficulty": "Medium",
+        "description": "### Problem\nYou are given a `clicks` table where each row is a page view.\nDefine a **session** as a sequence of events by the same user where adjacent events are at most 30 minutes apart.\nAssign a `session_id` per user and event using window functions.\nReturn `user_id`, `event_time`, and `session_id`.\n\n### Table: `clicks`\n\n| Column    | Type      | Description      |\n|----------|-----------|------------------|\n| user_id  | INT       | User ID.         |\n| event_time| TIMESTAMP| Time of the click|"
+    },
+    {
+        "id": 58,
+        "title": "Median Order Value per Month",
+        "difficulty": "Medium",
+        "description": "### Problem\nYou are given an `orders` table. For each month (YYYY-MM), compute the **median order amount**.\nReturn `month` and `median_amount`, sorted by `month`.\n\n### Table: `orders`\n\n| Column      | Type    | Description         |\n|------------|---------|---------------------|\n| order_id   | INT     | Primary key.        |\n| order_date | DATE    | Date of the order.  |\n| amount     | DECIMAL | Order amount.       |"
+    },
+    {
+        "id": 59,
+        "title": "Customer Lifetime Value Snapshot",
+        "difficulty": "Medium",
+        "description": "### Problem\nYou are given a `orders` table and a snapshot date parameter (e.g. `'2025-01-31'`).\nFor each customer, compute:\n- total revenue up to the snapshot date\n- first order date\nReturn `customer_id`, `first_order_date`, and `lifetime_revenue`.\n\n### Table: `orders`\n\n| Column      | Type    | Description         |\n|------------|---------|---------------------|\n| order_id   | INT     | Primary key.        |\n| customer_id| INT     | Customer ID.        |\n| order_date | DATE    | Date of the order.  |\n| amount     | DECIMAL | Order amount.       |"
+    },
+    {
+        "id": 60,
+        "title": "Identify Power Users",
+        "difficulty": "Medium",
+        "description": "### Problem\nYou are given a `logins` table. A **power user** is defined as logging in on at least 20 different days within a 30-day window.\nFind all power users using window functions.\nReturn `user_id`.\n\n### Table: `logins`\n\n| Column     | Type | Description        |\n|-----------|------|--------------------|\n| user_id   | INT  | User ID.           |\n| login_date| DATE | Date of login.     |"
+    },
+    {
+        "id": 61,
+        "title": "Order Frequency Segments",
+        "difficulty": "Medium",
+        "description": "### Problem\nYou are given an `orders` table.\nFor each customer, compute their order count and assign a segment:\n- `\"low\"` if count <= 2\n- `\"medium\"` if 3–5\n- `\"high\"` if > 5\nReturn `customer_id`, `order_count`, and `segment`.\n\n### Table: `orders`\n\n| Column      | Type   | Description         |\n|------------|--------|---------------------|\n| order_id   | INT    | Primary key.        |\n| customer_id| INT    | Customer ID.        |\n| order_date | DATE   | Date of order.      |"
+    },
+    {
+        "id": 62,
+        "title": "AB Test Conversion Uplift",
+        "difficulty": "Medium",
+        "description": "### Problem\nYou are given an `ab_events` table with experiment assignments and conversions.\nCompute conversion rates for variants 'A' and 'B' and the **uplift** B-A in percentage points.\nReturn `variant`, `users`, `conversions`, `conversion_rate`, and a second row summarizing uplift.\n\n### Table: `ab_events`\n\n| Column     | Type    | Description                         |\n|-----------|---------|-------------------------------------|\n| user_id   | INT     | User ID.                            |\n| variant   | VARCHAR | 'A' or 'B'.                         |\n| converted | INT     | 1 if converted in test period, 0 else|"
+    },
+    {
+        "id": 63,
+        "title": "Time to First Purchase",
+        "difficulty": "Medium",
+        "description": "### Problem\nYou are given `signups` and `orders` tables.\nFor each user who eventually purchases, compute the number of days between `signup_date` and their **first order**.\nReturn `user_id` and `days_to_first_purchase`.\n\n### Table: `signups`\n\n| Column    | Type   | Description      |\n|----------|--------|------------------|\n| user_id  | INT    | Primary key.     |\n| signup_date| DATE | Signup date.     |\n\n### Table: `orders`\n\n| Column      | Type   | Description         |\n|------------|--------|---------------------|\n| order_id   | INT    | Primary key.        |\n| user_id    | INT    | User ID.            |\n| order_date | DATE   | Date of the order.  |"
+    },
+    {
+        "id": 64,
+        "title": "Upsell Detection",
+        "difficulty": "Medium",
+        "description": "### Problem\nYou are given `orders` and `order_items` tables.\nA customer is considered **upsold** on an order if they initially add exactly one product to the cart, but the final order contains more than one distinct product.\nAssume `cart_add_time` is not available; determine upsell using the first product added per order as the earliest `order_items` row by `created_at`.\nReturn `order_id` and `customer_id` for upsold orders.\n\n### Table: `order_items`\n\n| Column      | Type      | Description                        |\n|------------|-----------|------------------------------------|\n| order_id   | INT       | Order ID.                          |\n| product_id | INT       | Product ID.                        |\n| created_at | TIMESTAMP | Time item was added to the order.  |"
+    },
+    {
+        "id": 65,
+        "title": "Top Referring Domains",
+        "difficulty": "Medium",
+        "description": "### Problem\nYou are given a `pageviews` table with referrer URLs.\nExtract the **domain** from `referrer_url` and compute how many sessions started from each domain.\nAssume a new session starts when `is_session_start = 1`.\nReturn `domain` and `session_count`, sorted by `session_count` descending.\n\n### Table: `pageviews`\n\n| Column          | Type      | Description                      |\n|----------------|-----------|----------------------------------|\n| user_id        | INT       | User ID.                         |\n| event_time     | TIMESTAMP | Time of the page view.           |\n| is_session_start| INT      | 1 if this is the first pageview of a session. |\n| referrer_url   | VARCHAR   | Full referrer URL.               |"
+    },
+    {
+        "id": 66,
+        "title": "Chained Subscriptions",
+        "difficulty": "Medium",
+        "description": "### Problem\nYou are given a `subscriptions` table where each row is a subscription period.\nFind users who have **no gaps** between consecutive subscriptions (the next `start_date` is the same as or before the previous `end_date` + 1 day).\nReturn `user_id` and total number of chained periods.\n\n### Table: `subscriptions`\n\n| Column       | Type | Description              |\n|-------------|------|--------------------------|\n| user_id     | INT  | User ID.                 |\n| start_date  | DATE | Subscription start date. |\n| end_date    | DATE | Subscription end date.   |"
+    },
+    {
+        "id": 67,
+        "title": "Product Seasonality Index",
+        "difficulty": "Medium",
+        "description": "### Problem\nYou are given a `sales` table with units sold per product per date.\nFor each product and month (1–12), compute the **seasonality index** = (average units that month) / (overall average units across all months for that product).\nReturn `product_id`, `month`, and `seasonality_index`.\n\n### Table: `sales`\n\n| Column     | Type   | Description                |\n|-----------|--------|----------------------------|\n| product_id| INT    | Product ID.                |\n| sale_date | DATE   | Date of sale.              |\n| units     | INT    | Units sold on that date.   |"
+    },
+    {
+        "id": 68,
+        "title": "Rank Products by Revenue Within Category",
+        "difficulty": "Medium",
+        "description": "### Problem\nYou are given `products` and `order_items` tables.\nFor each category, compute total revenue per product and rank products by revenue using `DENSE_RANK()`.\nReturn `category`, `product_id`, `revenue`, and `revenue_rank`.\n\n### Table: `products`\n\n| Column     | Type    | Description    |\n|-----------|---------|----------------|\n| product_id| INT     | Primary key.   |\n| category  | VARCHAR | Category name. |\n\n### Table: `order_items`\n\n| Column      | Type    | Description                          |\n|------------|---------|--------------------------------------|\n| order_id   | INT     | Order ID.                            |\n| product_id | INT     | Product ID.                          |\n| quantity   | INT     | Quantity purchased.                  |\n| unit_price | DECIMAL | Price per unit at time of purchase.  |"
+    },
+    {
+        "id": 69,
+        "title": "Repeat Purchase Rate",
+        "difficulty": "Medium",
+        "description": "### Problem\nYou are given an `orders` table.\nCompute the **repeat purchase rate**: fraction of customers with more than one order.\nReturn a single row with `repeat_rate` as a decimal between 0 and 1.\n\n### Table: `orders`\n\n| Column      | Type   | Description         |\n|------------|--------|---------------------|\n| order_id   | INT    | Primary key.        |\n| customer_id| INT    | Customer ID.        |"
+    },
+    {
+        "id": 70,
+        "title": "Multi-Product Basket Analysis",
+        "difficulty": "Medium",
+        "description": "### Problem\nYou are given an `order_items` table.\nFind all pairs of products `(product_a, product_b)` that appear together in at least 50 orders (ignoring order of the pair).\nReturn `product_a`, `product_b`, and `order_count`, sorted by `order_count` descending.\n\n### Table: `order_items`\n\n| Column      | Type | Description                        |\n|------------|------|------------------------------------|\n| order_id   | INT  | Order ID.                          |\n| product_id | INT  | Product ID.                        |"
+    },
+    {
+        "id": 71,
+        "title": "Multi-Touch Attribution with Time Decay",
+        "difficulty": "Hard",
+        "description": "### Problem\nYou are given `touches` and `conversions` tables for marketing attribution.\nUse a **time-decay multi-touch model** where each touch gets a weight `exp(-λ * age_days)` with λ = 0.1 and `age_days` is the difference in days between the conversion and the touch.\nOnly consider touches within 30 days before the conversion.\nDistribute each conversion's `revenue` across its touches proportionally to their weights.\nReturn `conversion_id`, `touch_id`, `channel`, and `attributed_revenue`.\n\n### Table: `touches`\n\n| Column    | Type      | Description              |\n|----------|-----------|--------------------------|\n| touch_id | INT       | Primary key.             |\n| user_id  | INT       | User ID.                 |\n| channel  | VARCHAR   | Channel name.            |\n| touch_time| TIMESTAMP| Time of the touch.       |\n\n### Table: `conversions`\n\n| Column        | Type      | Description              |\n|--------------|-----------|--------------------------|\n| conversion_id| INT       | Primary key.             |\n| user_id      | INT       | User ID.                 |\n| conversion_time| TIMESTAMP| Time of conversion.     |\n| revenue      | DECIMAL   | Conversion revenue.      |"
+    },
+    {
+        "id": 72,
+        "title": "Path Analysis: Most Common 3-Step Sequence",
+        "difficulty": "Hard",
+        "description": "### Problem\nYou are given a `pageviews` table of user navigation events.\nFind the **most common 3-page sequence** (triplet of consecutive pages) across all users and sessions.\nReturn `page1`, `page2`, `page3`, and `sequence_count`.\n\n### Table: `pageviews`\n\n| Column      | Type      | Description             |\n|------------|-----------|-------------------------|\n| user_id    | INT       | User ID.                |\n| event_time | TIMESTAMP | Time of the page view.  |\n| page       | VARCHAR   | Page identifier.        |"
+    },
+    {
+        "id": 73,
+        "title": "Customer Cohort Retention Matrix",
+        "difficulty": "Hard",
+        "description": "### Problem\nYou are given `signups` and `logins` tables.\nDefine cohorts by signup month (YYYY-MM). For each cohort, compute retention in months 0–5: the fraction of users in the cohort who logged in at least once in cohort_month + k.\nReturn a table with `cohort_month`, `month_offset`, `users_in_cohort`, `active_users`, and `retention_rate`.\n\n### Table: `signups`\n\n| Column     | Type | Description      |\n|-----------|------|------------------|\n| user_id   | INT  | User ID.         |\n| signup_date| DATE| Signup date.     |\n\n### Table: `logins`\n\n| Column     | Type | Description      |\n|-----------|------|------------------|\n| user_id   | INT  | User ID.         |\n| login_date| DATE | Login date.      |"
+    },
+    {
+        "id": 74,
+        "title": "Detect Cycles in Invoice Payments",
+        "difficulty": "Hard",
+        "description": "### Problem\nYou are given a `payments` table representing transfers between accounts.\nDetect whether there exists any **cycle** of payments (e.g., A→B→C→A).\nReturn 1 if any cycle exists, otherwise 0.\nUse a recursive CTE to traverse the graph.\n\n### Table: `payments`\n\n| Column    | Type | Description           |\n|----------|------|-----------------------|\n| from_acct| INT  | Source account ID.    |\n| to_acct  | INT  | Destination account ID|\n| amount   | DECIMAL | Payment amount.    |"
+    },
+    {
+        "id": 75,
+        "title": "Employee Org Chart with Level and Path",
+        "difficulty": "Hard",
+        "description": "### Problem\nYou are given an `employees` table with a self-referencing `manager_id`.\nUsing a recursive CTE, build the full org chart starting from CEOs (`manager_id` IS NULL).\nFor each employee, compute:\n- `level` (0 for CEO)\n- `path` as a string of names from CEO to the employee, separated by ' > '.\nReturn `emp_id`, `name`, `level`, and `path`.\n\n### Table: `employees`\n\n| Column     | Type    | Description              |\n|-----------|---------|--------------------------|\n| emp_id    | INT     | Primary key.             |\n| name      | VARCHAR | Employee name.           |\n| manager_id| INT     | Manager's emp_id or NULL |"
+    },
+    {
+        "id": 76,
+        "title": "Gap and Island Detection in Time Series",
+        "difficulty": "Hard",
+        "description": "### Problem\nYou are given a `sensor_readings` table with one row per timestamp when data arrived.\nDetect **continuous intervals** (islands) where readings occur at least every minute, and gaps where no data appears.\nReturn each island with `start_time`, `end_time`, and `reading_count`.\n\n### Table: `sensor_readings`\n\n| Column     | Type      | Description          |\n|-----------|-----------|----------------------|\n| reading_id| INT       | Primary key.         |\n| reading_time| TIMESTAMP| Time of the reading.|"
+    },
+    {
+        "id": 77,
+        "title": "Advanced Window Frame Analytics",
+        "difficulty": "Hard",
+        "description": "### Problem\nYou are given a `stock_prices` table with daily close prices.\nFor each stock and day, compute:\n- 5-day moving average ending at that day\n- 20-day moving average\n- z-score of the close price within the last 20 days\nReturn `symbol`, `price_date`, `close`, `ma_5`, `ma_20`, and `z_20`.\n\n### Table: `stock_prices`\n\n| Column    | Type   | Description        |\n|----------|--------|--------------------|\n| symbol   | VARCHAR| Ticker symbol.     |\n| price_date| DATE  | Trading date.      |\n| close    | DECIMAL| Close price.       |"
+    },
+    {
+        "id": 78,
+        "title": "Minute-Level Session Revenue Allocation",
+        "difficulty": "Hard",
+        "description": "### Problem\nYou are given `sessions` and `events` tables.\nEach `session` has a `revenue` value assigned at the end. You must allocate the revenue equally across all **minutes** where at least one event happened in that session.\nReturn `session_id`, `minute` (YYYY-MM-DD HH:MM), and `minute_revenue`.\n\n### Table: `sessions`\n\n| Column     | Type      | Description          |\n|-----------|-----------|----------------------|\n| session_id| INT       | Primary key.         |\n| user_id   | INT       | User ID.             |\n| start_time| TIMESTAMP | Session start.       |\n| end_time  | TIMESTAMP | Session end.         |\n| revenue   | DECIMAL   | Revenue from session |\n\n### Table: `events`\n\n| Column     | Type      | Description          |\n|-----------|-----------|----------------------|\n| session_id| INT       | Session ID.          |\n| event_time| TIMESTAMP | Event timestamp.     |"
+    },
+    {
+        "id": 79,
+        "title": "Customer Journey Stage Classification",
+        "difficulty": "Hard",
+        "description": "### Problem\nYou are given an `events` table with event types such as `'signup'`, `'browse'`, `'add_to_cart'`, `'purchase'`, `'churn'`.\nFor each user, classify their **current stage** based on the latest event in chronological order using this precedence: `churn > purchase > add_to_cart > browse > signup`.\nReturn `user_id` and `stage`.\n\n### Table: `events`\n\n| Column     | Type      | Description          |\n|-----------|-----------|----------------------|\n| user_id   | INT       | User ID.             |\n| event_time| TIMESTAMP | Event timestamp.     |\n| event_type| VARCHAR   | Type of event.       |"
+    },
+    {
+        "id": 80,
+        "title": "Detect Promotion Abuse",
+        "difficulty": "Hard",
+        "description": "### Problem\nYou are given `orders` and `promotions` tables.\nIdentify users who have used the **same promo code** on more than 3 distinct accounts (different `user_id`s but same `email_hash`).\nReturn `promo_code` and `email_hash`.\n\n### Table: `orders`\n\n| Column      | Type    | Description         |\n|------------|---------|---------------------|\n| order_id   | INT     | Primary key.        |\n| user_id    | INT     | User ID.            |\n| email_hash | VARCHAR | Hashed email.       |\n| promo_code | VARCHAR | Applied promotion.  |"
+    },
+    {
+        "id": 81,
+        "title": "Route Optimization: Shortest Path",
+        "difficulty": "Hard",
+        "description": "### Problem\nYou are given a `routes` table describing directed edges between warehouses with travel times.\nUsing a recursive CTE, compute the shortest travel time path from a source warehouse `A` to all others, assuming no negative cycles.\nReturn `destination`, `total_time`, and the `path` as 'A > ... > destination'.\n\n### Table: `routes`\n\n| Column     | Type    | Description           |\n|-----------|---------|-----------------------|\n| from_wh   | VARCHAR | From warehouse code.  |\n| to_wh     | VARCHAR | To warehouse code.    |\n| travel_time| INT    | Time in minutes.      |"
+    },
+    {
+        "id": 82,
+        "title": "Churn Prediction Features",
+        "difficulty": "Hard",
+        "description": "### Problem\nYou are given `logins` and `subscriptions` tables.\nGenerate a feature table at a snapshot date (e.g. `'2025-01-31'`) with, per user:\n- days since last login\n- number of logins in last 30 days\n- total subscription tenure (days up to snapshot)\nReturn `user_id`, `days_since_last_login`, `logins_30d`, and `tenure_days`.\n\n### Table: `logins`\n\n| Column     | Type | Description      |\n|-----------|------|------------------|\n| user_id   | INT  | User ID.         |\n| login_date| DATE | Login date.      |\n\n### Table: `subscriptions`\n\n| Column       | Type | Description                |\n|-------------|------|----------------------------|\n| user_id     | INT  | User ID.                   |\n| start_date  | DATE | Subscription start date.   |\n| end_date    | DATE | Subscription end date NULL = active |"
+    },
+    {
+        "id": 83,
+        "title": "Dynamic Pricing Band Detection",
+        "difficulty": "Hard",
+        "description": "### Problem\nYou are given a `price_changes` table recording when a product's price changed.\nFor each product, reconstruct continuous **price bands** (intervals of time during which the price stayed constant).\nReturn `product_id`, `start_time`, `end_time`, and `price` for each band.\n\n### Table: `price_changes`\n\n| Column     | Type      | Description                  |\n|-----------|-----------|------------------------------|\n| product_id| INT       | Product ID.                  |\n| change_time| TIMESTAMP| Time when new price took effect |\n| price     | DECIMAL   | New price.                   |"
+    },
+    {
+        "id": 84,
+        "title": "Attribution by Markov Chain Removal Effect",
+        "difficulty": "Hard",
+        "description": "### Problem\nYou are given a `paths` table where each row is a user journey from `start` to `conversion` through a sequence of channels.\nApproximate Markov chain attribution by computing the **removal effect** of each channel: difference in conversion probability when the channel is removed from paths.\nModel this in SQL by:\n1. Exploding each journey into transitions.\n2. Estimating conversion rate with and without each channel.\nReturn `channel` and `removal_effect`.\n\n### Table: `paths`\n\n| Column   | Type    | Description           |\n|---------|---------|-----------------------|\n| path_id | INT     | Journey ID.           |\n| path    | VARCHAR | Comma-separated list of channel names ending with 'conversion'. |"
+    },
+    {
+        "id": 85,
+        "title": "User Segmentation with Quantiles",
+        "difficulty": "Hard",
+        "description": "### Problem\nYou are given an `orders` table.\nFor each customer, compute total revenue and assign them into **quartiles** (Q1–Q4) based on revenue using `NTILE(4)` over revenue distribution.\nReturn `customer_id`, `total_revenue`, and `quartile`.\n\n### Table: `orders`\n\n| Column      | Type    | Description         |\n|------------|---------|---------------------|\n| order_id   | INT     | Primary key.        |\n| customer_id| INT     | Customer ID.        |\n| amount     | DECIMAL | Order amount.       |"
+    },
+    {
+        "id": 86,
+        "title": "Detect Fraudulent Click Patterns",
+        "difficulty": "Hard",
+        "description": "### Problem\nYou are given an `ad_clicks` table.\nFlag users as **suspicious** if they generate at least 100 clicks in any 10-minute window.\nReturn `user_id` and the start time of the earliest 10-minute window where the threshold is exceeded.\n\n### Table: `ad_clicks`\n\n| Column    | Type      | Description       |\n|----------|-----------|-------------------|\n| user_id  | INT       | User ID.          |\n| click_ts | TIMESTAMP | Click timestamp.  |"
+    },
+    {
+        "id": 87,
+        "title": "Inventory Stockout Prediction",
+        "difficulty": "Hard",
+        "description": "### Problem\nYou are given `inventory` and `sales` tables.\nFor each product and day, compute projected **days until stockout** assuming average daily sales over the last 14 days.\nReturn rows where projected stockout is within the next 7 days.\n\n### Table: `inventory`\n\n| Column     | Type   | Description            |\n|-----------|--------|------------------------|\n| product_id| INT    | Product ID.            |\n| inv_date  | DATE   | Inventory snapshot date|\n| quantity  | INT    | Units in stock.        |\n\n### Table: `sales`\n\n| Column     | Type   | Description      |\n|-----------|--------|------------------|\n| product_id| INT    | Product ID.      |\n| sale_date | DATE   | Date of sale.    |\n| units     | INT    | Units sold.      |"
+    },
+    {
+        "id": 88,
+        "title": "Customer Graph Connected Components",
+        "difficulty": "Hard",
+        "description": "### Problem\nYou are given a `links` table representing undirected connections between customers (e.g., same credit card, same device).\nFind connected components of this graph using a recursive CTE and assign a `component_id` to each customer.\nReturn `customer_id` and `component_id`.\n\n### Table: `links`\n\n| Column     | Type | Description           |\n|-----------|------|-----------------------|\n| customer_a| INT  | One customer ID.      |\n| customer_b| INT  | Another customer ID.  |"
+    },
+    {
+        "id": 89,
+        "title": "Holistic Revenue Waterfall",
+        "difficulty": "Hard",
+        "description": "### Problem\nYou are given a `orders` table with columns for `list_price`, `discount`, `tax`, and `shipping`.\nBuild a **revenue waterfall** per order that breaks down:\n- gross revenue (sum of list_price)\n- discounts\n- net revenue after discount\n- tax\n- shipping\nReturn one row per order with all intermediate metrics plus overall totals aggregated across all orders.\n\n### Table: `orders`\n\n| Column      | Type    | Description                |\n|------------|---------|----------------------------|\n| order_id   | INT     | Primary key.               |\n| list_price | DECIMAL | Sum of item list prices.   |\n| discount   | DECIMAL | Total discount applied.    |\n| tax        | DECIMAL | Tax amount.                |\n| shipping   | DECIMAL | Shipping charge.           |"
+    },
+    {
+        "id": 90,
+        "title": "Daily Revenue Anomaly Detection",
+        "difficulty": "Hard",
+        "description": "### Problem\nYou are given a `daily_revenue` table.\nFor each date, compute the mean and standard deviation of revenue over the prior 30 days (excluding the current date) and flag dates where revenue is more than 3 standard deviations away from the mean (high or low).\nReturn `rev_date`, `amount`, `mean_30d`, `std_30d`, and `is_anomaly` (0/1).\n\n### Table: `daily_revenue`\n\n| Column   | Type    | Description      |\n|---------|---------|------------------|\n| rev_date| DATE    | Revenue date.    |\n| amount  | DECIMAL | Revenue amount.  |"
+    }      
+  ]
+  
