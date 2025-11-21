@@ -1,7 +1,14 @@
 // src/pages/ProblemsList.tsx
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { problems } from "../data/problems";
+
+// Define the type for the data we expect to fetch
+interface ProblemSummary {
+  id: number;
+  title: string;
+  difficulty: "Easy" | "Medium" | "Hard";
+  slug: string;
+}
 
 const difficultyColor: Record<string, string> = {
   Easy: "text-green-600",
@@ -9,7 +16,41 @@ const difficultyColor: Record<string, string> = {
   Hard: "text-red-600"
 };
 
+const API_BASE_URL = "http://localhost:3000/api/problems"; // <-- Adjust port if necessary
+
 export const ProblemsList: React.FC = () => {
+  const [problems, setProblems] = useState<ProblemSummary[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchProblems = async () => {
+      try {
+        const response = await fetch(API_BASE_URL);
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data: ProblemSummary[] = await response.json();
+        setProblems(data);
+      } catch (e) {
+        setError("Failed to fetch problems.");
+        console.error("Fetch error:", e);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProblems();
+  }, []);
+
+  if (loading) {
+    return <div className="max-w-4xl mx-auto p-4">Loading problems...</div>;
+  }
+
+  if (error) {
+    return <div className="max-w-4xl mx-auto p-4 text-red-600">Error: {error}</div>;
+  }
+
   return (
     <div className="max-w-4xl mx-auto p-4">
       <h1 className="text-2xl font-bold mb-4">SQL Problems</h1>
