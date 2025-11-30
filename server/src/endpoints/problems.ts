@@ -1,28 +1,27 @@
-import { Router, Request, Response } from 'express';
+// inside your router file
+import express, { Request, Response } from 'express';
+import { getGroupedProblems, getProblemBySlug } from '../../data/problems'; // Adjust path
 
-import { getAllProblemsSummary, getProblemBySlug } from '../../data/problems';
+const router = express.Router();
 
-const router = Router();
-
-//problemlist data
+// GET /api/problems - Returns grouped list
 router.get('/', (req: Request, res: Response) => {
     try {
-        const problemsSummary = getAllProblemsSummary();
-        res.json(problemsSummary);
+        const groupedData = getGroupedProblems();
+        res.json(groupedData);
     } catch (error) {
-        console.error("Error fetching problem list:", error);
-        res.status(500).json({ message: "Failed to fetch problem list" });
+        console.error("Error fetching grouped problems:", error);
+        res.status(500).json({ message: "Failed to fetch problems" });
     }
 });
 
-//problem detail data
+// GET /api/problems/:slug - Returns specific problem (Unchanged)
 router.get('/:slug', (req: Request, res: Response) => {
     const { slug } = req.params;
     try {
         const problem = getProblemBySlug(slug);
         
         if (problem) {
-            // Send the full problem object
             res.json(problem);
         } else {
             res.status(404).json({ message: `Problem with slug '${slug}' not found` });
