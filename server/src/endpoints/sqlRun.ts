@@ -56,6 +56,7 @@ let container: any;
     await container.wait();
 
     //we have to add logs so that we know what happened, will be printed in console along with any errors
+    //also prints output of sql query on console
     const logs = await container.logs({ stdout: true, stderr: true });
 
     const cleanOutput=logs.slice(8).toString('utf-8');
