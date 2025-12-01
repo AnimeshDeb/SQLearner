@@ -540,6 +540,66 @@
         "title": "Daily Revenue Anomaly Detection",
         "difficulty": "Hard",
         "description": "### Problem\nYou are given a `daily_revenue` table.\nFor each date, compute the mean and standard deviation of revenue over the prior 30 days (excluding the current date) and flag dates where revenue is more than 3 standard deviations away from the mean (high or low).\nReturn `rev_date`, `amount`, `mean_30d`, `std_30d`, and `is_anomaly` (0/1).\n\n### Table: `daily_revenue`\n\n| Column   | Type    | Description      |\n|---------|---------|------------------|\n| rev_date| DATE    | Revenue date.    |\n| amount  | DECIMAL | Revenue amount.  |"
-    }      
+    },
+    {
+    "id": 91,
+    "title": "Combine Two Tables",
+    "difficulty": "Easy",
+    "description": "### Problem\nYou are given two tables: `Person` and `Address`.\nWrite a query to report the `firstName`, `lastName`, `city`, and `state` for each person in the `Person` table. If the address of a `personId` is not present in the `Address` table, report `NULL` instead.\n\n### Table: `Person`\n\n| Column     | Type    | Description           |\n|------------|---------|-----------------------|\n| personId   | INT     | Primary key.          |\n| lastName   | VARCHAR | Last name.            |\n| firstName  | VARCHAR | First name.           |\n\n### Table: `Address`\n\n| Column     | Type    | Description           |\n|------------|---------|-----------------------|\n| addressId  | INT     | Primary key.          |\n| personId   | INT     | Foreign key to Person.|\n| city       | VARCHAR | City name.            |\n| state      | VARCHAR | State name.           |\n\n### Example\n\n**Input — Person**\n\n| personId | lastName | firstName |\n|----------|----------|-----------|\n| 1        | Wang     | Allen     |\n| 2        | Alice    | Bob       |\n\n**Input — Address**\n\n| addressId | personId | city          | state    |\n|-----------|----------|---------------|----------|\n| 1         | 2        | New York City | New York |\n\n**Output**\n\n| firstName | lastName | city          | state    |\n|-----------|----------|---------------|----------|\n| Allen     | Wang     | NULL          | NULL     |\n| Bob       | Alice    | New York City | New York |"
+  },
+  {
+    "id": 92,
+    "title": "Nth Highest Salary",
+    "difficulty": "Medium",
+    "description": "### Problem\nYou are given an `Employee` table. Write a query to find the **Nth** highest salary from the `Employee` table. If there is no Nth highest salary, return `NULL`.\n\n(Note: For this platform, assume N = 2 for testing, or write a generic query using `LIMIT 1 OFFSET N-1` logic).\n\n### Table: `Employee`\n\n| Column | Type | Description    |\n|--------|------|----------------|\n| id     | INT  | Primary key.   |\n| salary | INT  | Monthly salary.|\n\n### Example (N=2)\n\n**Input — Employee**\n\n| id | salary |\n|----|--------|\n| 1  | 100    |\n| 2  | 200    |\n| 3  | 300    |\n\n**Output**\n\n| getNthHighestSalary(2) |\n|------------------------|\n| 200                    |"
+  },
+  {
+    "id": 93,
+    "title": "Rank Scores",
+    "difficulty": "Medium",
+    "description": "### Problem\nYou are given a `Scores` table. Write a query to rank the scores.\nThe ranking should be calculated as follows:\n1. The scores should be ranked from highest to lowest.\n2. If there is a tie between two scores, both should have the same ranking.\n3. After a tie, the next ranking number should be the next consecutive integer value (Dense Rank).\nReturn `score` and `rank_num`, sorted by `score` descending.\n\n### Table: `Scores`\n\n| Column | Type    | Description  |\n|--------|---------|--------------|\n| id     | INT     | Primary key. |\n| score  | DECIMAL | Game score.  |\n\n### Example\n\n**Input — Scores**\n\n| id | score |\n|----|-------|\n| 1  | 3.50  |\n| 2  | 3.65  |\n| 3  | 4.00  |\n| 4  | 3.85  |\n| 5  | 4.00  |\n| 6  | 3.65  |\n\n**Output**\n\n| score | rank_num |\n|-------|----------|\n| 4.00  | 1        |\n| 4.00  | 1        |\n| 3.85  | 2        |\n| 3.65  | 3        |\n| 3.65  | 3        |\n| 3.50  | 4        |"
+  },
+  {
+    "id": 94,
+    "title": "Consecutive Numbers",
+    "difficulty": "Medium",
+    "description": "### Problem\nYou are given a `Logs` table. Write a query to find all numbers that appear at least **three times consecutively**.\nReturn the `num` as `ConsecutiveNums`.\n\n### Table: `Logs`\n\n| Column | Type | Description       |\n|--------|------|-------------------|\n| id     | INT  | Primary key (autoincrement). |\n| num    | VARCHAR | The number.    |\n\n### Example\n\n**Input — Logs**\n\n| id | num |\n|----|-----|\n| 1  | 1   |\n| 2  | 1   |\n| 3  | 1   |\n| 4  | 2   |\n| 5  | 1   |\n| 6  | 2   |\n| 7  | 2   |\n\n**Output**\n\n| ConsecutiveNums |\n|-----------------|\n| 1               |\n\n(Note: 1 appears in rows 1, 2, 3. The 2s in rows 6, 7 are only two in a row, so they don't count.)"
+  },
+  {
+    "id": 95,
+    "title": "Employees Earning More Than Their Managers",
+    "difficulty": "Easy",
+    "description": "### Problem\nYou are given an `Employee` table. The `managerId` column contains the `id` of the employee's manager.\nWrite a query to find the employees who earn **more** than their managers.\nReturn the `name` of the employee.\n\n### Table: `Employee`\n\n| Column    | Type    | Description          |\n|-----------|---------|----------------------|\n| id        | INT     | Primary key.         |\n| name      | VARCHAR | Employee name.       |\n| salary    | INT     | Employee salary.     |\n| managerId | INT     | ID of manager (or NULL). |\n\n### Example\n\n**Input — Employee**\n\n| id | name  | salary | managerId |\n|----|-------|--------|-----------|\n| 1  | Joe   | 70000  | 3         |\n| 2  | Henry | 80000  | 4         |\n| 3  | Sam   | 60000  | NULL      |\n| 4  | Max   | 90000  | NULL      |\n\n**Output**\n\n| name  |\n|-------|\n| Joe   |\n\n(Joe makes 70k, his manager Sam makes 60k. Joe > Sam.)"
+  },
+  {
+    "id": 96,
+    "title": "Department Highest Salary",
+    "difficulty": "Medium",
+    "description": "### Problem\nYou are given `Employee` and `Department` tables. Write a query to find employees who have the **highest salary** in each of the departments.\nReturn `Department`, `Employee`, and `Salary`.\n\n### Table: `Employee`\n\n| Column       | Type    | Description         |\n|--------------|---------|---------------------|\n| id           | INT     | Primary key.        |\n| name         | VARCHAR | Employee name.      |\n| salary       | INT     | Employee salary.    |\n| departmentId | INT     | Foreign key to Dept.|\n\n### Table: `Department`\n\n| Column | Type    | Description      |\n|--------|---------|------------------|\n| id     | INT     | Primary key.     |\n| name   | VARCHAR | Department name. |\n\n### Example\n\n**Input — Employee**\n\n| id | name | salary | departmentId |\n|----|------|--------|--------------|\n| 1  | Joe  | 70000  | 1            |\n| 2  | Jim  | 90000  | 1            |\n| 3  | Henry| 80000  | 2            |\n\n**Input — Department**\n\n| id | name |\n|----|------|\n| 1  | IT   |\n| 2  | Sales|\n\n**Output**\n\n| Department | Employee | Salary |\n|------------|----------|--------|\n| IT         | Jim      | 90000  |\n| Sales      | Henry    | 80000  |"
+  },
+  {
+    "id": 97,
+    "title": "Department Top Three Salaries",
+    "difficulty": "Hard",
+    "description": "### Problem\nYou are given `Employee` and `Department` tables. A **high earner** in a department is an employee who has a salary in the top three unique salaries for that department.\nWrite a query to find the employees who are high earners in each of the departments.\nReturn `Department`, `Employee`, and `Salary`, sorted by Department then Salary.\n\n### Table: `Employee`\n\n| Column       | Type    | Description         |\n|--------------|---------|---------------------|\n| id           | INT     | Primary key.        |\n| name         | VARCHAR | Employee name.      |\n| salary       | INT     | Employee salary.    |\n| departmentId | INT     | Foreign key to Dept.|\n\n### Table: `Department`\n\n| Column | Type    | Description      |\n|--------|---------|------------------|\n| id     | INT     | Primary key.     |\n| name   | VARCHAR | Department name. |\n\n### Example\n\n**Input — Employee**\n\n| id | name  | salary | departmentId |\n|----|-------|--------|--------------|\n| 1  | Joe   | 85000  | 1            |\n| 2  | Henry | 80000  | 2            |\n| 3  | Sam   | 60000  | 2            |\n| 4  | Max   | 90000  | 1            |\n| 5  | Janet | 69000  | 1            |\n| 6  | Randy | 85000  | 1            |\n| 7  | Will  | 70000  | 1            |\n\n**Output**\n\n| Department | Employee | Salary |\n|------------|----------|--------|\n| IT         | Max      | 90000  |\n| IT         | Joe      | 85000  |\n| IT         | Randy    | 85000  |\n| IT         | Will     | 70000  |\n| Sales      | Henry    | 80000  |\n| Sales      | Sam      | 60000  |"
+  },
+  {
+    "id": 98,
+    "title": "Rising Temperature",
+    "difficulty": "Easy",
+    "description": "### Problem\nYou are given a `Weather` table. Write a query to find all dates' `id` with higher temperatures compared to its previous dates (yesterday).\nReturn `id`.\n\n### Table: `Weather`\n\n| Column      | Type | Description      |\n|-------------|------|------------------|\n| id          | INT  | Primary key.     |\n| recordDate  | DATE | The date.        |\n| temperature | INT  | Temperature value|\n\n### Example\n\n**Input — Weather**\n\n| id | recordDate | temperature |\n|----|------------|-------------|\n| 1  | 2025-01-01 | 10          |\n| 2  | 2025-01-02 | 25          |\n| 3  | 2025-01-03 | 20          |\n| 4  | 2025-01-04 | 30          |\n\n**Output**\n\n| id |\n|----|\n| 2  |\n| 4  |\n\n(2025-01-02 is hotter than 2025-01-01. 2025-01-04 is hotter than 2025-01-03.)"
+  },
+  {
+    "id": 99,
+    "title": "Trips and Users",
+    "difficulty": "Hard",
+    "description": "### Problem\nYou are given `Trips` and `Users` tables. The cancellation rate is computed by dividing the number of canceled (by client or driver) requests with unbanned users by the total number of requests with unbanned users on that day.\nWrite a query to find the cancellation rate of requests with unbanned users (both client and driver must not be banned) each day between \"2023-10-01\" and \"2023-10-03\".\nReturn `Day` and `Cancellation Rate` (rounded to 2 decimals).\n\n### Table: `Trips`\n\n| Column     | Type    | Description                |\n|------------|---------|----------------------------|\n| id         | INT     | Primary key.               |\n| client_id  | INT     | Foreign key to Users.      |\n| driver_id  | INT     | Foreign key to Users.      |\n| city_id    | INT     | City ID.                   |\n| status     | VARCHAR | 'completed', 'cancelled_by_driver', etc. |\n| request_at | DATE    | Date of trip.              |\n\n### Table: `Users`\n\n| Column  | Type    | Description        |\n|---------|---------|--------------------|\n| users_id| INT     | Primary key.       |\n| banned  | VARCHAR | 'Yes' or 'No'.     |\n| role    | VARCHAR | 'client', 'driver'.|\n\n### Example Output\n\n| Day        | Cancellation Rate |\n|------------|-------------------|\n| 2023-10-01 | 0.33              |\n| 2023-10-02 | 0.00              |\n| 2023-10-03 | 0.50              |"
+  },
+  {
+    "id": 100,
+    "title": "Exchange Seats",
+    "difficulty": "Medium",
+    "description": "### Problem\nYou are given a `Seat` table. Write a query to swap the seat id of every two consecutive students. If the number of students is odd, the id of the last student is not swapped.\nReturn the result table ordered by `id` in ascending order.\n\n### Table: `Seat`\n\n| Column | Type    | Description    |\n|--------|---------|----------------|\n| id     | INT     | Primary key.   |\n| student| VARCHAR | Student name.  |\n\n### Example\n\n**Input — Seat**\n\n| id | student |\n|----|---------|\n| 1  | Abbot   |\n| 2  | Doris   |\n| 3  | Emerson |\n| 4  | Green   |\n| 5  | Jeames  |\n\n**Output**\n\n| id | student |\n|----|---------|\n| 1  | Doris   |\n| 2  | Abbot   |\n| 3  | Green   |\n| 4  | Emerson |\n| 5  | Jeames  |"
+  }   
   ]
   

@@ -1,4 +1,3 @@
-// src/pages/ProblemsList.tsx
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
@@ -10,7 +9,7 @@ interface ProblemSummary {
   slug: string;
 }
 
-// The structure received from the backend (Option B: Ordered Array)
+// The structure received from the backend
 interface CategoryGroup {
   category: string;
   problems: ProblemSummary[];
@@ -22,10 +21,17 @@ const difficultyColor: Record<string, string> = {
   Hard: "text-red-600",
 };
 
+// --- SORTING HELPER ---
+// We assign a numeric value to each difficulty so we can do math with it.
+const difficultyRank: Record<string, number> = {
+  Easy: 1,
+  Medium: 2,
+  Hard: 3,
+};
+
 const API_BASE_URL = "http://localhost:3000/api/problems"; 
 
 export const ProblemsList: React.FC = () => {
-  // State now holds the array of groups, not a flat list
   const [problemGroups, setProblemGroups] = useState<CategoryGroup[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -38,7 +44,23 @@ export const ProblemsList: React.FC = () => {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
         const data: CategoryGroup[] = await response.json();
-        setProblemGroups(data);
+
+        // --- SORTING LOGIC ---
+        // We map over each group and sort its 'problems' array
+        const sortedData = data.map((group) => ({
+          ...group,
+          problems: group.problems.sort((a, b) => {
+            // 1. Primary Sort: Difficulty (Easy -> Hard)
+            const diffCompare = difficultyRank[a.difficulty] - difficultyRank[b.difficulty];
+            
+            // 2. Secondary Sort: ID (Ascending)
+            // If difficulties are the same, keep them ordered by ID
+            if (diffCompare !== 0) return diffCompare;
+            return a.id - b.id;
+          }),
+        }));
+
+        setProblemGroups(sortedData);
       } catch (e) {
         setError("Failed to fetch problems.");
         console.error("Fetch error:", e);
