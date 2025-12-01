@@ -16,7 +16,7 @@ let container: any;
     `
 
    
-
+    // Creating tables in docker container before running out query since container comes clean
     const totalquery=`${ initSqlTables}\n${ sqlquery }`
 
     container = await docker.createContainer({
