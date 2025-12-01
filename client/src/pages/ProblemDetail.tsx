@@ -67,9 +67,17 @@ export const ProblemDetail: React.FC = () => {
     );
   }
 
-  const handleRun = () => {
+  const handleRun = async () => {
+    const response=await fetch('http://localhost:3000/sqlrun', { 
+      method: "POST",
+      headers:  { 'Content-Type':'application/json' },
+      body: JSON.stringify({ sql })
+
+     })
+     const data=await response.json()
+
+     console.log("Sqlrun client data: ", data.output)
     console.log("Run SQL", { problemId: problem.id, sql });
-    console.warn("Hook this up to your SQL judge backend. (Using console.warn instead of alert())");
   };
 
   //accessing markdoown from directly api call
