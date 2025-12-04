@@ -7,6 +7,8 @@ interface ProblemFromJson {
   title: string;
   difficulty: Difficulty;
   description: string;
+  correctQuery: string;
+  sourceTableQuery: string;
 }
 
 export interface Problem extends ProblemFromJson {
