@@ -83,7 +83,7 @@ async function executeAndParseJson(initSql:string, query:string):Promise<any>
       throw new Error(`Inavlid json output from sql execution.`);
      }
      } else { 
-      throw new Error(`SQL Error or Empty Output: ${rawOutput.trim()}`); 
+      throw new Error(`SQL Error or Empty Output. ${rawOutput.trim()}`); 
     }
     
    } finally{ 

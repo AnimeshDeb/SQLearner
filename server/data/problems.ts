@@ -9,6 +9,7 @@ interface ProblemFromJson {
   description: string;
   correctQuery: string;
   sourceTableQuery: string;
+  hints: string[]; // <--- Added hints array
 }
 
 export interface Problem extends ProblemFromJson {
