@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, Link, useNavigate } from 'react-router-dom'; // Added useNavigate for programmatic navigation if needed
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { useUser } from '@clerk/clerk-react';
@@ -10,7 +10,8 @@ export interface Problem {
   difficulty: 'Easy' | 'Medium' | 'Hard';
   description: string;
   slug: string;
-  hints: string[]; // Updated interface to include hints
+  hints: string[];
+  correctQuery: string; // Added field
 }
 
 const API_BASE_URL = 'http://localhost:3000/api/problems';
@@ -27,17 +28,18 @@ export const ProblemDetail: React.FC = () => {
   const [sql, setSql] = useState('');
   const [isSqlLoaded, setIsSqlLoaded] = useState(false); 
 
-  // Execution State - Kept exactly as requested
+  // Execution State
   const [userOutput, setUserOutput] = useState<Record<string, unknown>[][] | null>(null);
   const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
   const [showModal, setShowModal] = useState(false);
   
-  // New State for Auth Modal
+  // Auth Modal State
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [execError, setExecError] = useState<string | null>(null);
 
-  // Hint State
+  // Hint & Solution State
   const [revealedHints, setRevealedHints] = useState(0);
+  const [showSolution, setShowSolution] = useState(false); // New state for solution toggle
 
   // --- Persistence Logic ---
   useEffect(() => {
@@ -64,7 +66,8 @@ export const ProblemDetail: React.FC = () => {
     setShowModal(false);
     setShowAuthModal(false);
     setExecError(null);
-    setRevealedHints(0); // Reset hints when changing problems
+    setRevealedHints(0);
+    setShowSolution(false); // Reset solution visibility on problem change
 
     if (!slug) {
       setLoading(false);
@@ -96,7 +99,6 @@ export const ProblemDetail: React.FC = () => {
   // --- Handlers ---
 
   const handleSubmit = async () => {
-    // 1. Auth Check
     if (!isSignedIn) {
       setShowAuthModal(true);
       return;
@@ -113,15 +115,14 @@ export const ProblemDetail: React.FC = () => {
       
       const data = await response.json();
       
-      // Handle both user errors and system errors (e.g. missing tables)
       if (data.status === 'error' || data.status === 'system_error') {
         setExecError(data.message);
         setIsCorrect(false);
-        setShowModal(true); // Show modal on error for submit
+        setShowModal(true);
       } else {
         setUserOutput(data.userOutput);
         setIsCorrect(data.isCorrect);
-        setShowModal(true); // Always show modal for submit results
+        setShowModal(true);
       }
 
     } catch (e) {
@@ -131,7 +132,6 @@ export const ProblemDetail: React.FC = () => {
   };
 
   const handleRun = async () => {
-    // 1. Auth Check
     if (!isSignedIn) {
       setShowAuthModal(true);
       return;
@@ -148,14 +148,10 @@ export const ProblemDetail: React.FC = () => {
       
       const data = await response.json();
       
-      // Handle both user errors and system errors (e.g. missing tables)
       if (data.status === 'error' || data.status === 'system_error') {
         setExecError(data.message);
-        // We generally don't show the success modal for "Run", only the output or error
       } else {
         setUserOutput(data.userOutput);
-        // Note: For "Run", we typically don't show the success modal (as per your snippet),
-        // we just update the output table.
       }
 
     } catch (e) {
@@ -189,7 +185,6 @@ export const ProblemDetail: React.FC = () => {
                 Cancel
               </button>
               <Link 
-                // Pass current URL so Signin.tsx can redirect back
                 to={`/signin?redirect_url=${encodeURIComponent(`/problems/${slug}`)}`}
                 className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-colors shadow-md"
               >
@@ -200,7 +195,7 @@ export const ProblemDetail: React.FC = () => {
         </div>
       )}
 
-      {/* --- RESULT MODAL (For Submit) --- */}
+      {/* --- RESULT MODAL --- */}
       {showModal && (
         <div className="absolute inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
           <div className={`bg-white rounded-xl shadow-2xl p-8 max-w-sm w-full text-center transform transition-all scale-100 ${isCorrect ? 'border-t-8 border-green-500' : 'border-t-8 border-red-500'}`}>
@@ -244,7 +239,7 @@ export const ProblemDetail: React.FC = () => {
         </div>
       )}
 
-      {/* --- LEFT COLUMN: Description & Hints --- */}
+      {/* --- LEFT COLUMN: Description, Hints & Solution --- */}
       <div className="flex-1 space-y-4 mb-4 md:mb-0 md:flex md:flex-col md:h-full overflow-hidden"> 
         <div className="flex items-center justify-between flex-shrink-0">
           <div>
@@ -266,7 +261,7 @@ export const ProblemDetail: React.FC = () => {
             {markdown}
           </ReactMarkdown>
 
-          {/* Hints Section - Moved inside the scrollable container */}
+          {/* Hints Section */}
           {problem.hints && problem.hints.length > 0 && (
             <div className="mt-8 pt-6 border-t border-slate-200">
               <div className="bg-yellow-50 border border-yellow-200 rounded-md p-4 shadow-sm">
@@ -277,7 +272,7 @@ export const ProblemDetail: React.FC = () => {
                   {revealedHints < problem.hints.length && (
                     <button 
                       onClick={() => setRevealedHints(prev => prev + 1)}
-                      className="text-xs bg-yellow-200 hover:bg-yellow-300 text-yellow-900 px-3 py-1 rounded-full font-semibold transition-colors border border-yellow-300"
+                      className="cursor-pointer text-xs bg-yellow-200 hover:bg-yellow-300 text-yellow-900 px-3 py-1 rounded-full font-semibold transition-colors border border-yellow-300"
                     >
                       Show Next Hint
                     </button>
@@ -301,6 +296,33 @@ export const ProblemDetail: React.FC = () => {
               </div>
             </div>
           )}
+
+          {/* Solution Section */}
+          <div className="mt-6">
+            <div className="bg-blue-50 border border-blue-200 rounded-md p-4 shadow-sm">
+              <div className="flex items-center justify-between mb-2">
+                <h3 className="font-bold text-blue-800 flex items-center gap-2 text-sm uppercase tracking-wide">
+                  <span>🔓</span> Solution
+                </h3>
+                <button 
+                  onClick={() => setShowSolution(!showSolution)}
+                  className="cursor-pointer text-xs bg-blue-200 hover:bg-blue-300 text-blue-900 px-3 py-1 rounded-full font-semibold transition-colors border border-blue-300"
+                >
+                  {showSolution ? 'Hide Solution' : 'Show Solution'}
+                </button>
+              </div>
+
+              {showSolution && (
+                 <div className="text-sm text-slate-800 bg-white p-3 rounded-md border border-blue-100 shadow-sm animate-in fade-in slide-in-from-top-2 duration-300">
+                    <span className="font-bold text-blue-600 block text-xs mb-1">CORRECT QUERY</span>
+                    <pre className="font-mono text-xs overflow-x-auto whitespace-pre-wrap text-teal-700">
+                      {problem.correctQuery}
+                    </pre>
+                 </div>
+              )}
+            </div>
+          </div>
+
         </div>
       </div>
 
@@ -319,13 +341,13 @@ export const ProblemDetail: React.FC = () => {
           <div className="flex gap-2 mt-3">
             <button
                 onClick={handleRun}
-                className="px-6 py-2 rounded-lg bg-orange-500 text-white text-base font-semibold transition hover:bg-orange-600 shadow-md hover:shadow-lg transform hover:scale-[1.01]"
+                className="cursor-pointer px-6 py-2 rounded-lg bg-orange-500 text-white text-base font-semibold transition hover:bg-orange-600 shadow-md hover:shadow-lg transform hover:scale-[1.01]"
             >
                 Run Code
             </button>
             <button
                 onClick={handleSubmit}
-                className="px-6 py-2 rounded-lg bg-blue-600 text-white text-base font-semibold transition hover:bg-blue-700 shadow-md hover:shadow-lg transform hover:scale-[1.01]"
+                className="cursor-pointer px-6 py-2 rounded-lg bg-blue-600 text-white text-base font-semibold transition hover:bg-blue-700 shadow-md hover:shadow-lg transform hover:scale-[1.01]"
             >
                 Submit Code
             </button>

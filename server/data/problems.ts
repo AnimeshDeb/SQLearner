@@ -9,7 +9,7 @@ interface ProblemFromJson {
   description: string;
   correctQuery: string;
   sourceTableQuery: string;
-  hints: string[]; // <--- Added hints array
+  hints: string[]; 
 }
 
 export interface Problem extends ProblemFromJson {
@@ -37,36 +37,26 @@ export const problems: Problem[] = (raw as ProblemFromJson[]).map((p) => ({
 }));
 
 // 2. Define Categories and Manual ID mapping
+// IDs 1-50 mapped to their specific Business Domains
 const CATEGORY_MAP: Record<string, number[]> = {
-  "Basic Selects & Filtering": [1, 31, 34, 35, 38, 42, 44, 46, 49],
-  
-  // Added 96 (Dept Highest Salary)
-  "Basic Aggregation & Grouping": [2, 7, 9, 32, 33, 37, 40, 41, 45, 50, 51, 69, 96], 
-  
-  // Added 91 (Combine Tables), 95 (Employees > Managers)
-  "Joins & Set Operations": [3, 4, 10, 11, 15, 16, 55, 70, 91, 95], 
-  
-  // Added 98 (Rising Temperature - Date Logic)
-  "String, Date & Time Manipulation": [5, 36, 39, 48, 53, 25, 98], 
-  
-  // Added 92, 93, 94, 97 (Ranking & Consecutive Logic)
-  "Window Functions": [6, 8, 12, 13, 14, 17, 18, 19, 24, 26, 28, 43, 52, 54, 58, 60, 68, 77, 85, 92, 93, 94, 97], 
-  
-  "Recursive & Hierarchical Data": [22, 23, 74, 75, 81, 88],
-  
-  // Added 99 (Trips & Users), 100 (Exchange Seats - Logic Heavy)
-  "Advanced Analytics & Business Logic": [20, 21, 27, 29, 30, 56, 57, 59, 61, 62, 63, 64, 65, 66, 67, 71, 72, 73, 76, 78, 79, 80, 82, 83, 84, 86, 87, 89, 90, 99, 100]
+  "E-commerce & Retail": [1, 8, 15, 22, 29, 35, 45, 50],
+  "Fintech & Payments": [4, 10, 17, 23, 30, 36, 42, 49],
+  "SaaS & User Growth": [6, 13, 20, 24, 31, 37, 43, 48],
+  "Logistics & Supply Chain": [5, 12, 19, 25, 32, 38, 47],
+  "HR & People Analytics": [2, 9, 16, 21, 28, 39, 41],
+  "Social Media & Content": [3, 11, 18, 26, 33, 40, 46],
+  "Healthcare": [7, 14, 27, 34, 44]
 };
 
 // 3. Define the explicit order for the UI
 const CATEGORY_ORDER = [
-  "Basic Selects & Filtering",
-  "Basic Aggregation & Grouping",
-  "Joins & Set Operations",
-  "String, Date & Time Manipulation",
-  "Window Functions",
-  "Recursive & Hierarchical Data",
-  "Advanced Analytics & Business Logic"
+  "E-commerce & Retail",
+  "Fintech & Payments",
+  "SaaS & User Growth",
+  "Logistics & Supply Chain",
+  "HR & People Analytics",
+  "Social Media & Content",
+  "Healthcare"
 ];
 
 // 4. Helper to return single problem by slug (unchanged)
@@ -74,7 +64,7 @@ export function getProblemBySlug(slug: string): Problem | undefined {
   return problems.find((p) => p.slug === slug);
 }
 
-// 5. NEW: Helper to return grouped problems
+// 5. Helper to return grouped problems
 export function getGroupedProblems(): CategoryGroup[] {
   const groupedResult: CategoryGroup[] = [];
   const categorizedIds = new Set<number>();
